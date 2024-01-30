@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "f8bb2a88-e229-490d-be25-7676ce33e8bc",
+		"name": "Day2_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32156806",
+		"_collection_link": "https://winter-zodiac-948243.postman.co/workspace/Jan08~308fdf5d-1f46-41d3-a312-082e1ad949ea/collection/32156806-f8bb2a88-e229-490d-be25-7676ce33e8bc?action=share&source=collection_link&creator=32156806"
+	},
+	"item": [
+		{
+			"name": "Auto_Request",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "postman",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/basic-auth",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"basic-auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ENV_ListUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page={{Pageno}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{Pageno}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_ListUser Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(pm.environment.get(\"scode\"))\r",
+							"});\r",
+							"\r",
+							"//console.log(pm.response.console)\r",
+							"\r",
+							"pm.test(\"Validate Emp data\", function(){\r",
+							"var jdata = JSON.parse(responseBody)\r",
+							"\r",
+							"pm.expect(jdata.data[0].email).to.eql(pm.environment.get(\"email\"))\r",
+							"pm.expect(jdata.data[0].first_name).to.eql(pm.environment.get(\"firstname\"))\r",
+							"pm.expect(jdata.data[0].last_name).to.eql(pm.environment.get(\"lastname\"))\r",
+							"pm.expect(jdata.data[0].id).to.eql(Number(pm.environment.get(\"id\")))\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_employee Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(pm.environment.get(\"scode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify the emp details\", function()\r",
+							"{\r",
+							"    var jdata= JSON.parse(responseBody)\r",
+							"\r",
+							"    pm.expect(jdata.data[1].employee_name).to.eql(pm.environment.get(\"name\"))\r",
+							"    pm.expect(jdata.data[1].employee_salary).to.eql(Number(pm.environment.get(\"salary\")))\r",
+							"     pm.expect(jdata.data[1].employee_age).to.eql(Number(pm.environment.get(\"age\")))\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type validation\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-type\")).to.eql('application/json')\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_empolyee_Id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(pm.environment.get(\"scode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify the emp details\", function()\r",
+							"{\r",
+							"    var jdata= JSON.parse(responseBody)\r",
+							"\r",
+							"    pm.expect(jdata.data.employee_name).to.eql(pm.environment.get(\"name\"))\r",
+							"    pm.expect(jdata.data.employee_salary).to.eql(Number(pm.environment.get(\"salary\")))\r",
+							"     pm.expect(jdata.data.employee_age).to.eql(Number(pm.environment.get(\"age\")))\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type validation\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-type\")).to.eql('application/json')\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employee/1",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST_Create Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(pm.environment.get(\"scode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify the emp details\", function(){\r",
+							"    var jdata= JSON.parse(responseBody)\r",
+							"\r",
+							"    pm.expect(jdata.data.name).to.eql(pm.environment.get(\"empname\"))\r",
+							"    pm.expect(jdata.data.salary).to.eql(pm.environment.get(\"empsalary\"))\r",
+							"     pm.expect(jdata.data.age).to.eql(pm.environment.get(\"empage\"))\r",
+							"  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"{{empname}}\",\"salary\":\"{{empsalary}}\",\"age\":\"{{empage}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/create",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT_Update_Id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(pm.environment.get(\"scode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify the emp details\", function(){\r",
+							"    var jdata= JSON.parse(responseBody)\r",
+							"\r",
+							"    pm.expect(jdata.data.name).to.eql(pm.environment.get(\"ename\"))\r",
+							"    pm.expect(jdata.data.salary).to.eql(pm.environment.get(\"esalary\"))\r",
+							"     pm.expect(jdata.data.age).to.eql(pm.environment.get(\"eage\"))\r",
+							"  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"{{ename}}\",\"salary\":\"{{esalary}}\",\"age\":\"{{eage}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummy.restapiexample.com/public/api/v1/update/21",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"v1",
+						"update",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_Delete-Id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/public/api/v1/delete/2",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"public",
+						"api",
+						"v1",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
